@@ -5,6 +5,10 @@
  */
 package studentmanagement;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author BENTA KESSY
@@ -17,6 +21,9 @@ public class NewUser extends javax.swing.JFrame {
     public NewUser() {
         initComponents();
     }
+    
+    connection con;
+    PreparedStatement pst;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,6 +59,11 @@ public class NewUser extends javax.swing.JFrame {
         txtUtype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User", "Admin" }));
 
         jButton1.setText("Add");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancel");
 
@@ -77,7 +89,7 @@ public class NewUser extends javax.swing.JFrame {
                         .addComponent(txtPass)
                         .addComponent(txtUser)
                         .addComponent(txtUtype, 0, 132, Short.MAX_VALUE)))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,7 +124,7 @@ public class NewUser extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(48, 48, 48)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -125,6 +137,36 @@ public class NewUser extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if(txtUser.getText().length()==0)
+        {
+            JOptionPane.showMessageDialog(this, "Please Type the User Name");
+        }
+        
+        else if(txtPass.getText().length()==0)
+        {
+            JOptionPane.showMessageDialog(this, "Please Type the Password");
+        }
+        else if(txtPass.getText().equals(txtConfirm.getText())==false)
+             {
+            JOptionPane.showMessageDialog(this, "Password Not Matched");
+        }
+        
+        
+        
+        else
+        {
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(NewUser.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            
+            
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
